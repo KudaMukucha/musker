@@ -1,0 +1,66 @@
+{%load static%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{%url 'home' %}">Musker</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile-list'%}">Profile List</a>
+              </li>
+              {%if user.is_authenticated %}
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              </li>
+              {%else%}
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'register'%}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'login'%}">Login</a>
+              </li>
+              
+              {%endif%}
+              <li class="nav-item dropdown">
+                <a href="" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Search 
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{%url 'search'%}" class="dropdown-item">Search Meeps</a>
+                  </li>
+                  <li>
+                    <a href="{%url 'search-user'%}" class="dropdown-item">Search Users</a>
+                  </li>
+                </ul>
+              </li>
+        </ul>
+
+        {% if user.is_authenticated %}
+         <ul class="navbar-nav ml-auto">
+          <li class="nav-link navbar-brand">
+            {%if user.profile.profile_image %}
+             <a href="{%url 'profile' request.user.id %}">
+              <img src="{{user.profile.profile_image.url}}" width="30" height="30" class="rounded-circle" alt="profile image">
+             </a>
+             {%else%}
+             <a href="{%url 'profile' request.user.id%}">
+              <img src="{%static 'images/user.png'%}" width="30" height="30" alt="profile image">
+             </a>
+             {%endif%}
+          </li>
+         </ul>
+        {%endif%}
+        <!-- <form role="search" class="d-flex">
+            <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search" >
+            <button class="btn btn-outline-success " type="submit">Search</button>
+        </form> -->
+
+      </div>
+    </div>
+  </nav>
